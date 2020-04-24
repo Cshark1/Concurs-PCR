@@ -7,18 +7,47 @@ public class PowerUps : MonoBehaviour
 {
     [SerializeField] private float _rotationSpeed = 120f;
     [SerializeField] private byte _powerUpID;
+    [SerializeField] private float _radiusIncrement = 2.5f;
+    [SerializeField] private float _speedIncrement = 25f;
+    [SerializeField] private float _jumpHeightIncrement = 1f;
+    private Player _player;
     
     // Start is called before the first frame update
     void Start()
     {
+        _player = GameObject.Find("Player").GetComponent<Player>();
         
+        if(_player == null)
+            Debug.LogError("_player is NULL");
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        switch (_powerUpID)
+        if (other.transform.name == "Player")
         {
-            
+            Debug.Log("Enter");
+            switch (_powerUpID)
+            {
+                case 0:
+                {
+                    _player.IncreaseLightLevel(_radiusIncrement);
+                    Debug.Log(other);
+                    Destroy(this.gameObject);
+                    break;
+                }
+                case 1:
+                {
+                    _player.IncreaseSpeed(_speedIncrement);
+                    Destroy(this.gameObject);
+                    break;
+                }
+                case 2:
+                {
+                    _player.IncreaseJumpHeight(_jumpHeightIncrement);
+                    Destroy(this.gameObject);
+                    break;
+                }
+            }
         }
     }
 

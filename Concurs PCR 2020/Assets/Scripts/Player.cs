@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UpdateLanterLightRadius();
+        
         _rb = this.gameObject.GetComponent<Rigidbody2D>();
         
         if(_rb == null)
@@ -81,6 +83,28 @@ public class Player : MonoBehaviour
     {
         _lanterne[Convert.ToInt32(_lanternSelector)].SetActive(true);
         _lanterne[Convert.ToInt32(!_lanternSelector)].SetActive(false);
+    }
+
+    public void IncreaseLightLevel(float radius)
+    {
+        _razaLanterne += radius;
+        UpdateLanterLightRadius();
+    }
+
+    private void UpdateLanterLightRadius()
+    {
+        _lanterne[0].transform.localScale = new Vector3(_razaLanterne,_razaLanterne,_razaLanterne);
+        _lanterne[1].transform.localScale = new Vector3(_razaLanterne,_razaLanterne,_razaLanterne);
+    }
+
+    public void IncreaseSpeed(float increment)
+    {
+        _speed += increment;
+    }
+
+    public void IncreaseJumpHeight(float increment)
+    {
+        _jumpHeight += increment;
     }
 
     // Update is called once per frame
