@@ -56,7 +56,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             _lanternSelector = !_lanternSelector;
-            Debug.Log(_lanternSelector);
             UpdateLantern();
         }
         
@@ -71,9 +70,6 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             Vector3 mousePos = hit.point;
-            
-            Debug.Log(mousePos);
-            
             _lanterne[Convert.ToInt32(_lanternSelector)].transform.position = mousePos;
         }
         
