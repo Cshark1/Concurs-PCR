@@ -25,13 +25,11 @@ public class PowerUps : MonoBehaviour
     {
         if (other.transform.name == "Player")
         {
-            Debug.Log("Enter");
             switch (_powerUpID)
             {
                 case 0:
                 {
                     _player.IncreaseLightLevel(_radiusIncrement);
-                    Debug.Log(other);
                     Destroy(this.gameObject);
                     break;
                 }
