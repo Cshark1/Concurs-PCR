@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speed = 130f;
     [SerializeField] private float _jumpHeight = 5f;
     [SerializeField] private GameObject[] _lanterne;
+    [SerializeField] private float _razaLanterne = 10f;
     private Rigidbody2D _rb;
     private bool _isgrounded = true;
     private bool _hasdoubleJumped = false;
