@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UIElements;
 using Debug = UnityEngine.Debug;
 
@@ -12,7 +13,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float _jumpHeight = 5f;
     [SerializeField] private GameObject[] _lanterne;
     [SerializeField] private float _razaLanterne = 10f;
+    [SerializeField] private float _lightOuterRadiusIncrement = 0.26f;
     private Rigidbody2D _rb;
+    private LanternLight _lanternLight1;
+    private LanternLight _lanternLight2;
     private bool _isgrounded = true;
     private bool _hasdoubleJumped = false;
     private bool _lanternSelector = false;
@@ -21,12 +25,31 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateLanterLightRadius();
+        AsignVariables();
         
+        _lanterne[1].SetActive(false);
+    }
+
+    private void AsignVariables()
+    {
         _rb = this.gameObject.GetComponent<Rigidbody2D>();
         
         if(_rb == null)
-            Debug.LogError("_crb is NULL");
+            Debug.LogError("_rb is NULL");
+
+        _lanternLight1 = GameObject.Find("Lanterna Platforma - Light").GetComponent<LanternLight>();
+
+        if (_lanternLight1 == null)
+        {
+            Debug.LogError("_lanternLight1 is null");
+        }
+        
+        _lanternLight2 = GameObject.Find("Lanterna PowerUps - Light").GetComponent<LanternLight>();
+        
+        if (_lanternLight2 == null)
+        {
+            Debug.LogError("_lanternLight2 is null");
+        }
     }
 
     private void OnCollisionStay2D(Collision2D other)
@@ -95,6 +118,14 @@ public class Player : MonoBehaviour
     {
         _lanterne[0].transform.localScale = new Vector3(_razaLanterne,_razaLanterne,_razaLanterne);
         _lanterne[1].transform.localScale = new Vector3(_razaLanterne,_razaLanterne,_razaLanterne);
+        
+        UpdateLanternLight2DRadius();
+    }
+
+    private void UpdateLanternLight2DRadius()
+    {
+        _lanternLight1.IncreaseLightOuterRadius(_lightOuterRadiusIncrement);
+        _lanternLight2.IncreaseLightOuterRadius(_lightOuterRadiusIncrement);
     }
 
     public void IncreaseSpeed(float increment)
