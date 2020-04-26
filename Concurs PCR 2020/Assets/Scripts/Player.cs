@@ -14,9 +14,11 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject[] _lanterne;
     [SerializeField] private float _razaLanterne = 10f;
     [SerializeField] private float _lightOuterRadiusIncrement = 0.26f;
+    [SerializeField] private float _characterRotationSpeed = 45f;
     private Rigidbody2D _rb;
     private LanternLight _lanternLight1;
     private LanternLight _lanternLight2;
+    private Animator _animator;
     private bool _isgrounded = true;
     private bool _hasdoubleJumped = false;
     private bool _lanternSelector = false;
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour
         AsignVariables();
         
         _lanterne[1].SetActive(false);
+        _lanterne[0].SetActive(true);
     }
 
     private void AsignVariables()
@@ -36,6 +39,13 @@ public class Player : MonoBehaviour
         
         if(_rb == null)
             Debug.LogError("_rb is NULL");
+
+        _animator = this.gameObject.GetComponent<Animator>();
+
+        if (_animator == null)
+        {
+            Debug.LogError("_animator is NULL");
+        }
 
         _lanternLight1 = GameObject.Find("Lanterna Platforma - Light").GetComponent<LanternLight>();
 
@@ -60,6 +70,8 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
+        float HorizontalInput = Input.GetAxis("Horizontal");
+        
         if (Input.GetKeyDown(KeyCode.Space) && _isgrounded)
         {
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);
@@ -73,7 +85,17 @@ public class Player : MonoBehaviour
             _hasdoubleJumped = true;
         }
         
-        _rb.velocity = new Vector2(Input.GetAxis("Horizontal") * (_speed * Time.smoothDeltaTime),_rb.velocity.y);
+        _rb.velocity = new Vector2(HorizontalInput * (_speed * Time.smoothDeltaTime),_rb.velocity.y);
+
+        if (HorizontalInput > 0f)
+        {
+            transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+        }else if (HorizontalInput < 0f)
+        {
+            transform.rotation = new Quaternion(0f, -180f, 0f, 0f);
+        }
+
+        _animator.SetFloat("Speed", _rb.velocity.x);
     }
 
     private void Lanterne()
@@ -108,12 +130,6 @@ public class Player : MonoBehaviour
         _lanterne[Convert.ToInt32(!_lanternSelector)].SetActive(false);
     }
 
-    public void IncreaseLightLevel(float radius)
-    {
-        _razaLanterne += radius;
-        UpdateLanterLightRadius();
-    }
-
     private void UpdateLanterLightRadius()
     {
         _lanterne[0].transform.localScale = new Vector3(_razaLanterne,_razaLanterne,_razaLanterne);
@@ -136,6 +152,12 @@ public class Player : MonoBehaviour
     public void IncreaseJumpHeight(float increment)
     {
         _jumpHeight += increment;
+    }
+    
+    public void IncreaseLightLevel(float radius)
+    {
+        _razaLanterne += radius;
+        UpdateLanterLightRadius();
     }
 
     // Update is called once per frame
