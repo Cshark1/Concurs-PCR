@@ -98,6 +98,18 @@ public class Player : MonoBehaviour
         _animator.SetFloat("Speed", _rb.velocity.x);
     }
 
+    private void lanternMouvemrnt()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+    
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 mousePos = hit.point;
+            _lanterne[Convert.ToInt32(_lanternSelector)].transform.position = mousePos;
+        }
+    }
+    
     private void Lanterne()
     {
         //Change lantern on pressing the "R" key
@@ -108,20 +120,6 @@ public class Player : MonoBehaviour
         }
         
         lanternMouvemrnt();
-    }
-
-    private void lanternMouvemrnt()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            Vector3 mousePos = hit.point;
-            _lanterne[Convert.ToInt32(_lanternSelector)].transform.position = mousePos;
-        }
-        
-
     }
 
     private void UpdateLantern()

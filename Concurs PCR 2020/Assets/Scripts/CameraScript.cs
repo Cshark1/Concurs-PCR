@@ -8,13 +8,7 @@ public class CameraScript : MonoBehaviour
 
     private void CameraFollowPlayer()
     {
-        if (_player.transform.position.x >= 0)
-        {
-            transform.position = new Vector3(_player.transform.position.x,transform.position.y,-10f);
-            return;
-        }
-
-        transform.position = new Vector3(0f,_player.transform.position.y,-10f);
+        transform.position = new Vector3(_player.transform.position.x,transform.position.y,-10f);
     }
 
     // Update is called once per frame
