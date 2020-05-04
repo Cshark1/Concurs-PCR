@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         _isgrounded = true;
         _hasdoubleJumped = false;
@@ -77,9 +77,7 @@ public class Player : MonoBehaviour
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);
             _isgrounded = false;
             _hasdoubleJumped = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && !_hasdoubleJumped)
+        } else if (Input.GetKeyDown(KeyCode.Space) && !_hasdoubleJumped)
         {
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);
             _hasdoubleJumped = true;
