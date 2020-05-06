@@ -145,7 +145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25812108}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3237677, y: -2.007964, z: -0.39598584}
+  m_LocalPosition: {x: 1.3237677, y: -1.53, z: -0.39598584}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1333339285}
@@ -907,7 +907,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &339595960
 Transform:
   m_ObjectHideFlags: 0
@@ -2337,7 +2337,7 @@ Transform:
   m_GameObject: {fileID: 736167221}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1000, y: 1000, z: 10}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 1467857260}
   - {fileID: 339595960}
@@ -2699,8 +2699,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 5.804289
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3180,6 +3180,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24eb51b9a93674628b34f3ef12643eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnPoints:
+  - {fileID: 25812108}
+  - {fileID: 1861017516}
+  _powerUpsPrefabs:
+  - {fileID: 4124310737465456603, guid: 49066a36b43e3f602bd4c35a1cda8b73, type: 3}
+  - {fileID: 4202507474614358578, guid: 76a937bf4533686b5808cb7e03f4ce58, type: 3}
+  - {fileID: 2130281119528550672, guid: 1c5f4b13df349339f95ef92bf27fbf35, type: 3}
 --- !u!4 &1256356388
 Transform:
   m_ObjectHideFlags: 0
@@ -5205,7 +5212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1861017516}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46.05, y: -1.9, z: 0}
+  m_LocalPosition: {x: 46.05, y: -1.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1333339285}

@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
 
     private void CheckIfSaveExist()
     {
-        if (PlayerPrefs.HasKey("_firstLevelCompleted")) LoadGame();
+        if (PlayerPrefs.GetInt("_firstLevelCompleted") != 0) LoadGame();
         else GenerateGameSave();
     }
 
@@ -76,12 +76,14 @@ public class Player : MonoBehaviour
 
     private void GeneratePowerUpIds()
     {
-        _fistPowerUpID = PowerUpRandomiser();
-        _secondPowerUpID = PowerUpRandomiser();
-        _ThirdPowerUpID = PowerUpRandomiser();
-        _ForthPowerUpID = PowerUpRandomiser();
-        _FithPowerUpID = PowerUpRandomiser();
-        _SixtPowerUpID = PowerUpRandomiser();
+        _fistPowerUpID = 2;
+        _secondPowerUpID = 1;
+        _ThirdPowerUpID = 2;
+        _ForthPowerUpID = 0;
+        _FithPowerUpID = 1;
+        _SixtPowerUpID = 0;
+        
+        SaveGame();
     }
 
     private int PowerUpRandomiser()
@@ -91,7 +93,7 @@ public class Player : MonoBehaviour
             
         while (!valid)
         {
-            PowerUpId = Random.Range(0, 3);
+            PowerUpId = Random.Range(0, 4);
 
             valid = CheckIfPowerUpIdIsValid(PowerUpId);
         }
@@ -138,6 +140,7 @@ public class Player : MonoBehaviour
         PlayerPrefs.SetFloat("_speed", _speed);
         PlayerPrefs.SetFloat("_jumpHeight", _jumpHeight);
         PlayerPrefs.SetFloat("_razaLanterne", _razaLanterne);
+        PlayerPrefs.Save();
     }
     
     private void LoadGame()
@@ -164,6 +167,12 @@ public class Player : MonoBehaviour
         _speed = PlayerPrefs.GetFloat("_speed");
         _jumpHeight = PlayerPrefs.GetFloat("_jumpHeight");
         _razaLanterne = PlayerPrefs.GetFloat("_razaLanterne");
+        
+        _lanterne[0].transform.localScale = new Vector3(_razaLanterne,_razaLanterne,_razaLanterne);
+        _lanterne[1].transform.localScale = new Vector3(_razaLanterne,_razaLanterne,_razaLanterne);
+        
+        _lanternLight1.IncreaseLightOuterRadius(_lightOuterRadiusIncrement * PlayerPrefs.GetInt("_razaLanterneCollected"));
+        _lanternLight2.IncreaseLightOuterRadius(_lightOuterRadiusIncrement);
     }
 
     private void AsignVariables()
@@ -204,7 +213,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (transform.tag == "Finish")
+        if (gameObject.tag == "Finish")
         {
             LevelComplete();
         }
@@ -221,6 +230,8 @@ public class Player : MonoBehaviour
             case 1: _secondLevelCompleted = 1; break;
             case 2: _thirdLevelCompleted = 1; break;
         }
+        
+        Debug.Log("Win");
         
         SaveGame();
     }
