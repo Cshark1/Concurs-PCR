@@ -86,36 +86,6 @@ public class Player : MonoBehaviour
         SaveGame();
     }
 
-    private int PowerUpRandomiser()
-    {
-        bool valid = false;
-        int PowerUpId = -1;
-            
-        while (!valid)
-        {
-            PowerUpId = Random.Range(0, 4);
-
-            valid = CheckIfPowerUpIdIsValid(PowerUpId);
-        }
-
-        return PowerUpId;
-    }
-
-    private bool CheckIfPowerUpIdIsValid(int Id)
-    {
-        byte appearance = 0;
-
-        if (Id == _fistPowerUpID) appearance++;
-        if (Id == _secondPowerUpID) appearance++;
-        if (Id == _ThirdPowerUpID) appearance++;
-        if (Id == _ForthPowerUpID) appearance++;
-        if (Id == _FithPowerUpID) appearance++;
-        if (Id == _SixtPowerUpID) appearance++;
-
-        if (appearance > 2) return true;
-        return false;
-    }
-
     private void SaveGame()
     {
         PlayerPrefs.SetInt("_jumpHeightCollected",_jumpHeightCollected);
@@ -231,7 +201,7 @@ public class Player : MonoBehaviour
             case 2: _thirdLevelCompleted = 1; break;
         }
         
-        Debug.Log("Win");
+        Debug.Log("win");
         
         SaveGame();
     }
@@ -310,7 +280,7 @@ public class Player : MonoBehaviour
 
     private void OnDeath()
     {
-       
+       _gameManager.OnGameOver();
     }
     
     private void CheckIfFallen()
@@ -340,6 +310,47 @@ public class Player : MonoBehaviour
     public int GetLevel()
     {
         return _level;
+    }
+
+    public void MarkPowerUpAsCollected(Collision2D other)
+    {
+        GameObject _other = other.gameObject;
+        switch (_level)
+        {
+            case 0:
+            {
+                if (_other.transform.parent.name == "SpawnPoint 1")
+                {
+                    _fistPowerUpCollected = 1;
+                }else if (_other.transform.parent.name == "SpawnPoint 2")
+                {
+                    _secondPowerUpCollected = 1;
+                }
+                break;
+            }
+            case 1:
+            {
+                if (_other.transform.parent.name == "SpawnPoint 1")
+                {
+                    _thirdPowerUpCollected = 1;
+                }else if (_other.transform.parent.name == "SpawnPoint 2")
+                {
+                    _forthPowerUpCollected = 1;
+                }
+                break;
+            }
+            case 2:
+            {
+                if (_other.transform.parent.name == "SpawnPoint 1")
+                {
+                    _fithPowerUpCollected = 1;
+                }else if (_other.transform.parent.name == "SpawnPoint 2")
+                {
+                    _SixtPowerUpCollected = 1;
+                }
+                break;
+            }
+        }
     }
     
     // Update is called once per frame

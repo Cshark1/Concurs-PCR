@@ -30,6 +30,7 @@ public class PowerUps : MonoBehaviour
                 case 0:
                 {
                     _player.IncreaseLightLevel(_radiusIncrement);
+                    _player.MarkPowerUpAsCollected(other);
                     Destroy(this.gameObject);
                     break;
                 }
@@ -47,6 +48,7 @@ public class PowerUps : MonoBehaviour
                 }
             }
         }
+        
     }
 
     private void PowerUpRotation()

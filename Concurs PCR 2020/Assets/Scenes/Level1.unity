@@ -3365,6 +3365,7 @@ MonoBehaviour:
   - {fileID: 4124310737465456603, guid: 49066a36b43e3f602bd4c35a1cda8b73, type: 3}
   - {fileID: 4202507474614358578, guid: 76a937bf4533686b5808cb7e03f4ce58, type: 3}
   - {fileID: 2130281119528550672, guid: 1c5f4b13df349339f95ef92bf27fbf35, type: 3}
+  _GameOverText: {fileID: 47056585}
 --- !u!4 &1256356388
 Transform:
   m_ObjectHideFlags: 0

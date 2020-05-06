@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] _spawnPoints;
     [SerializeField] private GameObject[] _powerUpsPrefabs;
-
+    [SerializeField] private GameObject _GameOverText;
+    
     private Player _player;
     private int _level;
     
@@ -114,6 +116,25 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+    }
+
+    IEnumerator WaitForRestart()
+    {
+        while (true)
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                SceneManager.LoadScene(1);
+            }
+
+            yield return null;
+        }
+    }
+
+    public void OnGameOver()
+    {
+        _GameOverText.SetActive(true);
+        StartCoroutine(WaitForRestart());
     }
 
     // Update is called once per frame
