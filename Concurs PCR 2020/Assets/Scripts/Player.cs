@@ -183,7 +183,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (gameObject.tag == "Finish")
+        if (other.gameObject.tag == "Finish")
         {
             LevelComplete();
         }
@@ -201,9 +201,11 @@ public class Player : MonoBehaviour
             case 2: _thirdLevelCompleted = 1; break;
         }
         
-        Debug.Log("win");
+        _gameManager.OnLevelComplete();
         
         SaveGame();
+        
+        Destroy(this.gameObject);
     }
 
     private void Movement()
@@ -281,6 +283,7 @@ public class Player : MonoBehaviour
     private void OnDeath()
     {
        _gameManager.OnGameOver();
+       Destroy(this.gameObject);
     }
     
     private void CheckIfFallen()

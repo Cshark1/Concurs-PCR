@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] _spawnPoints;
     [SerializeField] private GameObject[] _powerUpsPrefabs;
     [SerializeField] private GameObject _GameOverText;
+    [SerializeField] private GameObject _WinMessageText;
     
     private Player _player;
     private int _level;
@@ -108,7 +109,6 @@ public class GameManager : MonoBehaviour
         
         gameObject.transform.SetParent(spawnPoint.transform);
     }
-    
 
     private void checkForExit()
     {
@@ -130,11 +130,30 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
     }
+    
+    IEnumerator WaitForMainMenu()
+    {
+        while (true)
+        {
+            if (Input.GetKey(KeyCode.M))
+            {
+                SceneManager.LoadScene(0);
+            }
+
+            yield return null;
+        }
+    }
 
     public void OnGameOver()
     {
         _GameOverText.SetActive(true);
         StartCoroutine(WaitForRestart());
+    }
+
+    public void OnLevelComplete()
+    {
+        _WinMessageText.SetActive(true);
+        StartCoroutine(WaitForMainMenu());
     }
 
     // Update is called once per frame
