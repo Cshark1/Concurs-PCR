@@ -51,8 +51,7 @@ public class Player : MonoBehaviour
     private int _secondLevelCompleted = 0;
     private int _thirdLevelCompleted = 0;
     //until here
-
-    // Start is called before the first frame update
+    
     private void Start()
     {
         AsignVariables();
@@ -326,10 +325,12 @@ public class Player : MonoBehaviour
                 if (_other.transform.parent.name == "SpawnPoint 1")
                 {
                     _fistPowerUpCollected = 1;
-                }else if (_other.transform.parent.name == "SpawnPoint 2")
+                }
+                if (_other.transform.parent.name == "SpawnPoint 2")
                 {
                     _secondPowerUpCollected = 1;
                 }
+                return;
                 break;
             }
             case 1:
@@ -337,10 +338,12 @@ public class Player : MonoBehaviour
                 if (_other.transform.parent.name == "SpawnPoint 1")
                 {
                     _thirdPowerUpCollected = 1;
-                }else if (_other.transform.parent.name == "SpawnPoint 2")
+                }
+                if (_other.transform.parent.name == "SpawnPoint 2")
                 {
                     _forthPowerUpCollected = 1;
                 }
+                return;
                 break;
             }
             case 2:
@@ -348,16 +351,18 @@ public class Player : MonoBehaviour
                 if (_other.transform.parent.name == "SpawnPoint 1")
                 {
                     _fithPowerUpCollected = 1;
-                }else if (_other.transform.parent.name == "SpawnPoint 2")
+                }
+                if (_other.transform.parent.name == "SpawnPoint 2")
                 {
                     _SixtPowerUpCollected = 1;
                 }
+                return;
                 break;
             }
         }
+        return;
     }
     
-    // Update is called once per frame
     void Update()
     {
         Movement();
