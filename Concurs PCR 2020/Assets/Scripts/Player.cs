@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
 
     private void CheckIfSaveExist()
     {
-        if (PlayerPrefs.GetInt("_firstLevelCompleted") != 0) LoadGame();
+        if (PlayerPrefs.HasKey("_speed")) LoadGame();
         else GenerateGameSave();
     }
 
@@ -196,7 +196,8 @@ public class Player : MonoBehaviour
     {
         switch (_level)
         {
-            case 0: _firstLevelCompleted = 1; break;
+            case 0: _firstLevelCompleted = 1;
+                _isDoubleJumpActive = 1; break;
             case 1: _secondLevelCompleted = 1; break;
             case 2: _thirdLevelCompleted = 1; break;
         }

@@ -9,6 +9,6 @@ public class CameraScriptMM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(_speed,0f,0f);
+        transform.Translate(_speed * Time.deltaTime,0f,0f);
     }
 }

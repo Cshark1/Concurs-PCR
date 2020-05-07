@@ -37,12 +37,14 @@ public class PowerUps : MonoBehaviour
                 case 1:
                 {
                     _player.IncreaseSpeed(_speedIncrement);
+                    _player.MarkPowerUpAsCollected(other);
                     Destroy(this.gameObject);
                     break;
                 }
                 case 2:
                 {
                     _player.IncreaseJumpHeight(_jumpHeightIncrement);
+                    _player.MarkPowerUpAsCollected(other);
                     Destroy(this.gameObject);
                     break;
                 }

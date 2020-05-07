@@ -124,7 +124,12 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.R))
             {
-                SceneManager.LoadScene(1);
+                switch (_level)
+                {
+                    case 0:SceneManager.LoadScene(1); break;
+                    case 1:SceneManager.LoadScene(2); break;
+                    case 2:SceneManager.LoadScene(3); break;
+                }
             }
 
             yield return null;

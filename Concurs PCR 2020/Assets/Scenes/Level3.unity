@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3834,7 +3834,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc886ac2b47189c259c75140439132d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _light2D: {fileID: 1467857259}
 --- !u!4 &1499254596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7953013956989352515, guid: f84b4867b56e0d8449c97b7fdde2fec1,
@@ -5269,7 +5268,7 @@ MonoBehaviour:
   - {fileID: 1921054229}
   _razaLanterne: 10
   _lightOuterRadiusIncrement: 0.26
-  _level: 0
+  _level: 2
 --- !u!95 &1756460566
 Animator:
   serializedVersion: 3
@@ -6068,7 +6067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc886ac2b47189c259c75140439132d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _light2D: {fileID: 2018757366}
 --- !u!4 &2041682285 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5076281746890330598, guid: 028b4fc9a50dcfa9a8db99074c4e1c83,
