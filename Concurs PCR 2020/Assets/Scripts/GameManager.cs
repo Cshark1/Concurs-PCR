@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] _powerUpsPrefabs;
     [SerializeField] private GameObject _GameOverText;
     [SerializeField] private GameObject _WinMessageText;
+    [SerializeField] private GameObject _menu;
+    [SerializeField] private GameObject _devMenu;
     
     private Player _player;
     private int _level;
@@ -25,22 +27,18 @@ public class GameManager : MonoBehaviour
         }
 
         _level = _player.GetLevel();
-        
-        Debug.Log(_level);
-        
+
         SpawnPowerUp();
     }
 
     private void SpawnPowerUp()
     {
-        Debug.Log(PlayerPrefs.GetInt("_firstLevelCompleted"));
         switch (_level)
         {
             case 0:
             {
                 if (PlayerPrefs.GetInt("_firstLevelCompleted") == 0)
                 {
-                    Debug.Log("da ftr");
                     SpawnSpecificPowerUp(PlayerPrefs.GetInt("_fistPowerUpID"), _spawnPoints[0]);
                     SpawnSpecificPowerUp(PlayerPrefs.GetInt("_secondPowerUpID"), _spawnPoints[1]);
                     break;
@@ -50,7 +48,7 @@ public class GameManager : MonoBehaviour
                     SpawnSpecificPowerUp(PlayerPrefs.GetInt("_fistPowerUpID"), _spawnPoints[0]);
                 }
 
-                if (PlayerPrefs.GetInt("_secondPowerUpID") == 0)
+                if (PlayerPrefs.GetInt("_secondPowerUpCollected") == 0)
                 {
                     SpawnSpecificPowerUp(PlayerPrefs.GetInt("_secondPowerUpID"), _spawnPoints[1]);
                 }
@@ -114,7 +112,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            ShowHideMainMenu();
         }
     }
 
@@ -161,6 +159,74 @@ public class GameManager : MonoBehaviour
         StartCoroutine(WaitForMainMenu());
     }
 
+    public void ShowSavedGame()
+    {
+        Debug.Log("_jumpHeightCollected = " + PlayerPrefs.GetInt("_jumpHeightCollected"));
+        Debug.Log("_speedCollected = " + PlayerPrefs.GetInt("_speedCollected"));
+        Debug.Log("_razaLanterneCollected = " + PlayerPrefs.GetInt("_razaLanterneCollected"));
+        Debug.Log("_isDoubleJumpActive = " + PlayerPrefs.GetInt("_isDoubleJumpActive"));
+        Debug.Log("_fistPowerUpID = " + PlayerPrefs.GetInt("_fistPowerUpID"));
+        Debug.Log("_secondPowerUpID = " + PlayerPrefs.GetInt("_secondPowerUpID"));
+        Debug.Log("_ThirdPowerUpID = " + PlayerPrefs.GetInt("_ThirdPowerUpID"));
+        Debug.Log("_ForthPowerUpID = " + PlayerPrefs.GetInt("_ForthPowerUpID"));
+        Debug.Log("_FithPowerUpID = " + PlayerPrefs.GetInt("_FithPowerUpID"));
+        Debug.Log("_SixtPowerUpID = " + PlayerPrefs.GetInt("_SixtPowerUpID"));
+        Debug.Log("_fistPowerUpCollected = " + PlayerPrefs.GetInt("_fistPowerUpCollected"));
+        Debug.Log("_secondPowerUpCollected = " + PlayerPrefs.GetInt("_secondPowerUpCollected"));
+        Debug.Log("_thirdPowerUpCollected = " + PlayerPrefs.GetInt("_thirdPowerUpCollected"));
+        Debug.Log("_forthPowerUpCollected = " + PlayerPrefs.GetInt("_forthPowerUpCollected"));
+        Debug.Log("_fithPowerUpCollected = " + PlayerPrefs.GetInt("_fithPowerUpCollected"));
+        Debug.Log("_SixtPowerUpCollected = " + PlayerPrefs.GetInt("_SixtPowerUpCollected"));
+        Debug.Log("_firstLevelCompleted = " + PlayerPrefs.GetInt("_firstLevelCompleted"));
+        Debug.Log("_secondLevelCompleted = " + PlayerPrefs.GetInt("_secondLevelCompleted"));
+        Debug.Log("_thirdLevelCompleted = " + PlayerPrefs.GetInt("_thirdLevelCompleted"));
+        Debug.Log("_speed = " + PlayerPrefs.GetFloat("_speed"));
+        Debug.Log("_jumpHeight = " + PlayerPrefs.GetFloat("_jumpHeight"));
+        Debug.Log("_razaLanterne = " + PlayerPrefs.GetFloat("_razaLanterne"));
+    }
+
+    public void ResetSaveGame()
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ShowHideMainMenu()
+    {
+        if (Time.timeScale == 1)
+        {
+            _menu.gameObject.SetActive(true);
+            Time.timeScale = 0f;
+        }else if (Time.timeScale == 0)
+        {
+            _menu.gameObject.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
+
+    public void ShowHideDevMenu()
+    {
+        if (_devMenu.activeSelf)
+        {
+            _devMenu.SetActive(false);
+            _menu.SetActive(true);
+        }else if (!_devMenu.activeSelf)
+        {
+            _devMenu.SetActive(true);
+            _menu.SetActive(false);
+        }
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    
     // Update is called once per frame
     void Update()
     {

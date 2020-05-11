@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
         _lanterne[1].transform.localScale = new Vector3(_razaLanterne,_razaLanterne,_razaLanterne);
         
         _lanternLight1.IncreaseLightOuterRadius(_lightOuterRadiusIncrement * PlayerPrefs.GetInt("_razaLanterneCollected"));
-        _lanternLight2.IncreaseLightOuterRadius(_lightOuterRadiusIncrement);
+        _lanternLight2.IncreaseLightOuterRadius(_lightOuterRadiusIncrement * PlayerPrefs.GetInt("_razaLanterneCollected"));
     }
 
     private void AsignVariables()
@@ -236,6 +236,7 @@ public class Player : MonoBehaviour
         _animator.SetFloat("Speed", _rb.velocity.x);
     }
 
+
     private void lanternMouvemrnt()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -315,54 +316,68 @@ public class Player : MonoBehaviour
         return _level;
     }
 
-    public void MarkPowerUpAsCollected(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        GameObject _other = other.gameObject;
-        switch (_level)
+        if (other.transform.tag == "PowerUP")
         {
-            case 0:
+            switch (_level)
             {
-                if (_other.transform.parent.name == "SpawnPoint 1")
+                case 0:
                 {
-                    _fistPowerUpCollected = 1;
+                    if (other.transform.parent.name == "SpawnPoint 1")
+                    {
+                        _fistPowerUpCollected = 1;
+                        AddOnePowerUpCollected(PlayerPrefs.GetInt("_fistPowerUpID"));
+                    }
+                    if (other.transform.parent.name == "SpawnPoint 2")
+                    {
+                        _secondPowerUpCollected = 1;
+                        AddOnePowerUpCollected(PlayerPrefs.GetInt("_secondPowerUpID"));
+                    }
+                    break;
                 }
-                if (_other.transform.parent.name == "SpawnPoint 2")
+                case 1:
                 {
-                    _secondPowerUpCollected = 1;
+                    if (other.transform.parent.name == "SpawnPoint 1")
+                    {
+                        _thirdPowerUpCollected = 1;
+                        AddOnePowerUpCollected(PlayerPrefs.GetInt("_ThirdPowerUpID"));
+                    }
+                    if (other.transform.parent.name == "SpawnPoint 2")
+                    {
+                        _forthPowerUpCollected = 1;
+                        AddOnePowerUpCollected(PlayerPrefs.GetInt("_ForthPowerUpID"));
+                    }
+                    break;
                 }
-                return;
-                break;
-            }
-            case 1:
-            {
-                if (_other.transform.parent.name == "SpawnPoint 1")
+                case 2:
                 {
-                    _thirdPowerUpCollected = 1;
+                    if (other.transform.parent.name == "SpawnPoint 1")
+                    {
+                        _fithPowerUpCollected = 1;
+                        AddOnePowerUpCollected(PlayerPrefs.GetInt("_FithPowerUpID"));
+                    }
+                    if (other.transform.parent.name == "SpawnPoint 2")
+                    {
+                        _SixtPowerUpCollected = 1;
+                        AddOnePowerUpCollected(PlayerPrefs.GetInt("_SixtPowerUpID"));
+                    }
+                    break;
                 }
-                if (_other.transform.parent.name == "SpawnPoint 2")
-                {
-                    _forthPowerUpCollected = 1;
-                }
-                return;
-                break;
-            }
-            case 2:
-            {
-                if (_other.transform.parent.name == "SpawnPoint 1")
-                {
-                    _fithPowerUpCollected = 1;
-                }
-                if (_other.transform.parent.name == "SpawnPoint 2")
-                {
-                    _SixtPowerUpCollected = 1;
-                }
-                return;
-                break;
             }
         }
-        return;
     }
-    
+
+    private void AddOnePowerUpCollected(int powerUpId)
+    {
+        switch (powerUpId)
+        {
+            case 0: _razaLanterneCollected++; break;
+            case 1: _speedCollected++; break;
+            case 2: _jumpHeightCollected++; break;
+        }
+    }
+
     void Update()
     {
         Movement();
