@@ -217,7 +217,7 @@ public class Player : MonoBehaviour
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);
             _isGrounded = false;
             _hasDoubleJumped = false;
-        } else if (Input.GetKeyDown(KeyCode.Space) && !_hasDoubleJumped)
+        } else if (Input.GetKeyDown(KeyCode.Space) && !_hasDoubleJumped && Convert.ToBoolean(_isDoubleJumpActive))
         {
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);
             _hasDoubleJumped = true;
