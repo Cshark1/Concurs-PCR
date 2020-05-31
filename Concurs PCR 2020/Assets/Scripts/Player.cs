@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     private int _razaLanterneCollected = 0;
     
     private int _isDoubleJumpActive = 0;
+
+    private int _tutorialCompleted = 0;
     
     //done
     private int _fistPowerUpID = -1;
@@ -109,6 +111,7 @@ public class Player : MonoBehaviour
         PlayerPrefs.SetFloat("_speed", _speed);
         PlayerPrefs.SetFloat("_jumpHeight", _jumpHeight);
         PlayerPrefs.SetFloat("_razaLanterne", _razaLanterne);
+        PlayerPrefs.SetInt("_tutorialCompleted", _tutorialCompleted);
         PlayerPrefs.Save();
     }
     
@@ -136,6 +139,7 @@ public class Player : MonoBehaviour
         _speed = PlayerPrefs.GetFloat("_speed");
         _jumpHeight = PlayerPrefs.GetFloat("_jumpHeight");
         _razaLanterne = PlayerPrefs.GetFloat("_razaLanterne");
+        _tutorialCompleted = PlayerPrefs.GetInt("_tutorialCompleted");
         
         _lanterne[0].transform.localScale = new Vector3(_razaLanterne,_razaLanterne,_razaLanterne);
         _lanterne[1].transform.localScale = new Vector3(_razaLanterne,_razaLanterne,_razaLanterne);
@@ -237,7 +241,7 @@ public class Player : MonoBehaviour
     }
 
 
-    private void lanternMouvemrnt()
+    private void LanternMovement()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -258,7 +262,7 @@ public class Player : MonoBehaviour
             UpdateLantern();
         }
         
-        lanternMouvemrnt();
+        LanternMovement();
     }
 
     private void UpdateLantern()

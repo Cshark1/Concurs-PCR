@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _WinMessageText;
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _devMenu;
+    [SerializeField] private GameObject _tutorial;
     
     private Player _player;
     private int _level;
-    
 
     private void Start()
     {
@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
         }
 
         _level = _player.GetLevel();
+        
+        CheckIfTutorialCompleted();
 
         SpawnPowerUp();
     }
@@ -110,7 +112,7 @@ public class GameManager : MonoBehaviour
 
     private void checkForExit()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && PlayerPrefs.GetInt("_tutorialCompleted") == 1)
         {
             ShowHideMainMenu();
         }
@@ -145,6 +147,42 @@ public class GameManager : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    private void CheckIfTutorialCompleted()
+    {
+        if (PlayerPrefs.GetInt("_tutorialCompleted") == 0)
+        {
+            _tutorial.SetActive(true);
+            StartCoroutine(WaitForClose());
+            StartCoroutine(WaitForAutoClose());
+        }
+    }
+
+    IEnumerator WaitForClose()
+    {
+        while (true)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                PlayerPrefs.SetInt("_tutorialCompleted", 1);
+                _tutorial.SetActive(false);
+            }
+
+            yield return null;
+        }
+    }
+
+    IEnumerator WaitForAutoClose()
+    {
+        yield return new WaitForSeconds(60);
+        PlayerPrefs.SetInt("_tutorialCompleted", 1);
+        _tutorial.SetActive(false);
+    }
+    
+    private void EndTutorial()
+    {
+        
     }
 
     public void OnGameOver()

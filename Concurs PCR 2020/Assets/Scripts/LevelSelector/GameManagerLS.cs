@@ -43,4 +43,10 @@ public class GameManagerLS : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(3);
     }
+
+    public void Back()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
+    }
 }
